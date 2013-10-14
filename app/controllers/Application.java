@@ -40,7 +40,7 @@ public class Application extends Controller {
     System.out.println("In post Contact");
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     ContactFormData data = formData.get();
-    System.out.format("%s, %s, %s%n", data.firstName, data.lastName, data.telephone);
+    System.out.format("%s, %s, %s, %s%n", data.firstName, data.lastName, data.telephone, data.address);
     return ok(NewContact.render(formData));
     
   }

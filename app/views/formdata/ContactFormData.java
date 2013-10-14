@@ -14,5 +14,6 @@ public class ContactFormData {
   public String lastName = "";
   /** The phone number. */
   public String telephone = "";
-  
+  /**The address. */
+  public String address = "";
 }

@@ -9,14 +9,17 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String telephone;
+  private long id;
   
   /**
    * Creates a new contact.
    * @param firstName The first name.
    * @param lastName The last name.
    * @param telephone The telelphone number.
+   * @param id The id.
    */
-   public Contact(String firstName, String lastName, String telephone) {
+   public Contact(long id, String firstName, String lastName, String telephone) {
+     this.setId(id);
      this.firstName = firstName;
      this.lastName = lastName;
      this.telephone = telephone;
@@ -56,5 +59,17 @@ public class Contact {
    */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
+  }
+  /**
+   * @return the id
+   */
+  public long getId() {
+    return id;
+  }
+  /**
+   * @param id the id to set
+   */
+  public void setId(long id) {
+    this.id = id;
   }
 }

@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import views.formdata.ContactFormData;
 
 /**
@@ -11,16 +13,17 @@ import views.formdata.ContactFormData;
  */
 public class ContactDB {
   
-  private static List<Contact> contacts = new ArrayList<>();
+  private static Map<Long, Contact> contacts = new HashMap<Long, Contact>();
 
   /**
-   * Adds a contact to the list.
+   * Updates the repo with a new Contact if id = 0 or update a pre existing contact if id != 0.
    * @param formData the contact form data to add.
    * @return Contact the newly created contact to return.
    */
   public static Contact addContact(ContactFormData formData) {
-    Contact contact = new Contact(formData.firstName, formData.lastName, formData.telephone);
-    contacts.add(contact);
+    long idVal = (formData.id == 0) ? contacts.size() + 1 : formData.id;
+    Contact contact = new Contact(idVal, formData.firstName, formData.lastName, formData.telephone);
+    contacts.put(idVal,  contact);
     return contact;
   }
   /**
@@ -28,7 +31,19 @@ public class ContactDB {
    * @return List of Contacts.
    */
   public static List<Contact> getContacts() {
-    return contacts;
+    return new ArrayList<>(contacts.values());
+  }
+  /**
+   * Returns a Contact object.
+   * @param id the id.
+   * @return Contact based on the id.
+   */
+  public static Contact getContact(long id) {
+    Contact contact = contacts.get(id);
+    if (contact == null) {
+      throw new RuntimeException("Passed an invalid id: " + id); 
+    }
+    return contact;
   }
 
 }

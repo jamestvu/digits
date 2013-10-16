@@ -26,6 +26,17 @@ public class ContactDB {
     contacts.put(idVal,  contact);
     return contact;
   }
+  
+  /**
+   * Updates the repo with a new Contact if id = 0 or update a pre existing contact if id != 0.
+   * @param id the id.
+   */
+  public static void deleteContact(long id) {
+    contacts.remove(id);
+
+  }
+  
+  
   /**
    * Returns the list of contacts.
    * @return List of Contacts.

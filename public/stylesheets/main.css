@@ -2,6 +2,10 @@ body {
   
 }
 
+.button, a:visited, a:link {
+  color: white;
+}
+
 .header {
   background: url('../images/header.jpg');
   background-size: 100% 100%;

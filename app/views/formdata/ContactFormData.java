@@ -24,7 +24,7 @@ public class ContactFormData {
   public long id = 0;
   
   /**
-   * Default Constructor
+   * Default Constructor.
    */
   public ContactFormData() {
     
@@ -32,6 +32,7 @@ public class ContactFormData {
   /**
    * Creates a Cfd based a contact object.
    * @param formData
+   * @param formData the form data.
    */
   public ContactFormData(Contact formData) {
     this.firstName = formData.getFirstName();

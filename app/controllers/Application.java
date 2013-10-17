@@ -23,9 +23,9 @@ public class Application extends Controller {
   }
   
   /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
-   * @return The Page1.
-   * @param id the id.
+   * Returns the new Contact page and/or updates an existing contact.
+   * @return The new Contact page
+   * @param id The id of the contact.
    */
   public static Result newContact(long id) {
     ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
@@ -35,9 +35,9 @@ public class Application extends Controller {
   }
   
   /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
-   * @return The Page1.
-   * @param id the id.
+   * Returns the Index page, and deletes the contact with the given id.
+   * @return The Index page.
+   * @param id the id of the contact to delete.
    */
   public static Result deleteContact(long id) {
     ContactDB.deleteContact(id);
@@ -46,8 +46,8 @@ public class Application extends Controller {
   }
   
   /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
-   * @return The Page1.
+   * Returns the new contact page, with error messages if there were invalid fields.
+   * @return The new contact page.
    */
   public static Result postContact() {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();

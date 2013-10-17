@@ -1,8 +1,8 @@
 package models;
 
 /**
- * provides a model for the contact class.
- * @author Owner
+ * Provides a model for a contact object.
+ * @author James Vu
  *
  */
 public class Contact {
@@ -15,8 +15,8 @@ public class Contact {
    * Creates a new contact.
    * @param firstName The first name.
    * @param lastName The last name.
-   * @param telephone The telelphone number.
-   * @param id The id.
+   * @param telephone The telephone number.
+   * @param id The id of the contact.
    */
    public Contact(long id, String firstName, String lastName, String telephone) {
      this.setId(id);

@@ -28,12 +28,11 @@ public class ContactDB {
   }
   
   /**
-   * Updates the repo with a new Contact if id = 0 or update a pre existing contact if id != 0.
+   * Updates the repository with a new Contact if id = 0 or update a pre-existing contact if id != 0.
    * @param id the id.
    */
   public static void deleteContact(long id) {
     contacts.remove(id);
-
   }
   
   

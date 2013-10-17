@@ -9,8 +9,8 @@
     <td>@contact.getFirstName()</td>
     <td>@contact.getLastName()</td>
     <td>@contact.getTelephone()</td>
-    <td><button type="button" class="btn btn-warning"><a href="@routes.Application.newContact(contact.getId())">Edit</a></button></td>
-    <td><button type="button" class="btn btn-danger"><a href="@routes.Application.deleteContact(contact.getId())">Delete</a></button></td>
+    <td><a href="@routes.Application.newContact(contact.getId())" class="btn btn-warning">Edit</a></td>
+    <td><a href="@routes.Application.deleteContact(contact.getId())" class="btn btn-danger">Delete</a></td>
   </tr>
   
   }

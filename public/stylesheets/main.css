@@ -2,7 +2,7 @@ body {
   
 }
 
-.button, a:visited, a:link {
+.btn a:link, .btn a:visited {
   color: white;
 }
 

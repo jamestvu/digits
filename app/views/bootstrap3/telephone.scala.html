@@ -1,0 +1,30 @@
+@(field: Field, label:String, placeholder:String, help:String, field2: Field, optionMap: Map[String, Boolean], isMultiple: Boolean)
+
+  <div class="form-group @if(field.hasErrors || field2.hasErrors) {has-error}">
+    <label class="col-sm-2 control-label">@label</label>
+    <div class="col-sm-8">
+      <input type="text" 
+             class="form-control" 
+             id="@field.id" 
+             name="@field.name" 
+             value="@field.value.getOrElse("")"
+             placeholder="@placeholder" />
+      <span class="help-block">@help</span>
+      <span class="help-block">@{field.error.map { error => error.message }}</span>
+    </div>
+    
+    <div class="col-sm-2">
+      <select
+        class="form-control"
+        id="@field2.id"
+        name="@if(isMultiple) {@(field2.name + "[]")} else {@field2.name}"
+        @if(isMultiple) {multiple="multiple"}>
+        @if(!isMultiple) {<option class="blank" value="">Please select a value</option>}
+        @for((optionName, isSelected) <- optionMap) {
+          <option id="@optionName" value="@optionName" @if(isSelected) {selected}>@optionName</option>
+        }
+      </select>
+      <span class="help-block">@help</span>
+      <span class="help-block">@{field2.error.map { error => error.message }}</span>
+    </div>
+  </div>

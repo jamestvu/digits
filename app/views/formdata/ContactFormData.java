@@ -20,6 +20,8 @@ public class ContactFormData {
   public String lastName = "";
   /** The phone number. */
   public String telephone = "";
+  /** The phone number type. */
+  public String telephoneType = "";
   /** The id. */
   public long id = 0;
   
@@ -39,6 +41,7 @@ public class ContactFormData {
     this.id = formData.getId();
     this.lastName = formData.getLastName();
     this.telephone = formData.getTelephone();
+    this.telephoneType = formData.getTelephoneType();
   }
   /**
    * Checks that form fields are valid. Called by bindFormRequest().
@@ -61,6 +64,10 @@ public class ContactFormData {
     
     if (telephone.length() != NUM_TELEPHONE_DIGITS) {
       errors.add(new ValidationError("telephone", "Telephone number must follow the format xxx-xxx-xxxx."));
+    }
+    
+    if (!TelephoneTypes.isType(telephoneType)) {
+      errors.add(new ValidationError("telephoneType", "Please select a telephone type."));
     }
     
     return errors.isEmpty() ? null : errors;

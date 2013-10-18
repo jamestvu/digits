@@ -9,6 +9,7 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String telephone;
+  private String telephoneType;
   private long id;
   
   /**
@@ -18,11 +19,12 @@ public class Contact {
    * @param telephone The telephone number.
    * @param id The id of the contact.
    */
-   public Contact(long id, String firstName, String lastName, String telephone) {
+   public Contact(long id, String firstName, String lastName, String telephone, String telephoneType) {
      this.setId(id);
      this.firstName = firstName;
      this.lastName = lastName;
      this.telephone = telephone;
+     this.telephoneType = telephoneType;
    }
   /**
    * @return the lastName
@@ -71,5 +73,17 @@ public class Contact {
    */
   public void setId(long id) {
     this.id = id;
+  }
+  /**
+   * @return the telephoneType
+   */
+  public String getTelephoneType() {
+    return telephoneType;
+  }
+  /**
+   * @param telephoneType the telephoneType to set
+   */
+  public void setTelephoneType(String telephoneType) {
+    this.telephoneType = telephoneType;
   }
 }

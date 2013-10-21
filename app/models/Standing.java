@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Represent a student grade level.
+ * Represent a student standing.
  * This class includes:
  * <ul>
  * <li> The model structure (fields, plus getters and setters).
@@ -67,7 +67,7 @@ public class Standing {
   }
 
   /**
-   * Provide a default grade level for use in form display.
+   * Provide a default Standing for use in form display.
    * @return The default grade level.
    */
   public static Standing getDefaultLevel() {
@@ -79,7 +79,7 @@ public class Standing {
     return String.format("[Standing %s]", this.name);
   }
 
-  /** Fake a database of Grade Levels. */
+  /** Fake a database of Standings. */
   private static List<Standing> allLevels = new ArrayList<>();
 
   /** Instantiate the fake database. */

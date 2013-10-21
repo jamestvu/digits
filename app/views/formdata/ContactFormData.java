@@ -3,6 +3,7 @@ package views.formdata;
 import java.util.ArrayList;
 import java.util.List;
 import models.Contact;
+import models.Standing;
 import play.data.validation.ValidationError;
 
 /**
@@ -22,6 +23,8 @@ public class ContactFormData {
   public String telephone = "";
   /** The phone number type. */
   public String telephoneType = "";
+  /** The class standing. */
+  public String standing = "";
   /** The id. */
   public long id = 0;
   
@@ -42,6 +45,7 @@ public class ContactFormData {
     this.lastName = formData.getLastName();
     this.telephone = formData.getTelephone();
     this.telephoneType = formData.getTelephoneType();
+    this.standing = formData.getStanding();
   }
   /**
    * Checks that form fields are valid. Called by bindFormRequest().
@@ -68,6 +72,13 @@ public class ContactFormData {
     
     if (!TelephoneTypes.isType(telephoneType)) {
       errors.add(new ValidationError("telephoneType", "Please select a telephone type."));
+    }
+    
+    // Grade Level is required and must exist in database.
+    if (standing == null || standing.length() == 0) {
+      errors.add(new ValidationError("standing", "No standing was given."));
+    } else if (Standing.findLevel(standing) == null) {
+      errors.add(new ValidationError("standing", "Invalid standing: " + standing + "."));
     }
     
     return errors.isEmpty() ? null : errors;

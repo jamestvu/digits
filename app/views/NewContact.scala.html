@@ -1,4 +1,4 @@
-@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean])
+@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean], standings: List[String])
 
 @import helper._
 @import bootstrap3._
@@ -32,6 +32,11 @@
         optionMap = telephoneTypeMap,
         isMultiple = false) 
 
+  <!-- Standings -->
+  @radiobuttons(contactForm("standing"),
+                label = "Standing",
+                buttonNameList = standings,
+                help = "")
           
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">

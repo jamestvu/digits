@@ -3,13 +3,14 @@
 @Main("Home") {
 <div class="container">
   <table class="table table-striped table-bordered">
-  <tr><th>First</th><th>Last</th><th>Phone</th><th>Phone Type</th></tr>
+  <tr><th>First</th><th>Last</th><th>Phone</th><th>Phone Type</th><th>Standing</th></tr>
   @for(contact <- contacts) {
   <tr>
     <td>@contact.getFirstName()</td>
     <td>@contact.getLastName()</td>
     <td>@contact.getTelephone()</td>
     <td>@contact.getTelephoneType()</td>
+    <td>@contact.getStanding()</td>
     <td><a href="@routes.Application.newContact(contact.getId())" class="btn btn-warning">Edit</a></td>
     <td><a href="@routes.Application.deleteContact(contact.getId())" class="btn btn-danger">Delete</a></td>
   </tr>

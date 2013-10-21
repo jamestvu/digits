@@ -1,6 +1,7 @@
 package controllers;
 
 import models.ContactDB;
+import models.Standing;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -31,7 +32,7 @@ public class Application extends Controller {
   public static Result newContact(long id) {
     ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
-    return ok(NewContact.render(formData, TelephoneTypes.getTypes()));
+    return ok(NewContact.render(formData, TelephoneTypes.getTypes(), Standing.getNameList()));
     
   }
   
@@ -54,12 +55,12 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     
     if (formData.hasErrors()) {
-      return badRequest(NewContact.render(formData, TelephoneTypes.getTypes()));
+      return badRequest(NewContact.render(formData, TelephoneTypes.getTypes(), Standing.getNameList()));
     }
     else {
       ContactFormData data = formData.get();
       ContactDB.addContact(data);
-      return ok(NewContact.render(formData, TelephoneTypes.getTypes()));
+      return ok(NewContact.render(formData, TelephoneTypes.getTypes(), Standing.getNameList()));
     }
   }
   

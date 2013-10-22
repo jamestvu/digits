@@ -18,7 +18,7 @@ public class TelephoneTypes {
    * @return The telephone type map.
    */
   public static Map<String, Boolean> getTypes() {
-    Map<String, Boolean> typeMap = new HashMap();
+    Map<String, Boolean> typeMap = new HashMap<String, Boolean>();
     for (String type: types) {
       typeMap.put(type,  false);
     }

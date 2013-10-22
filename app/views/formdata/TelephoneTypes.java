@@ -27,8 +27,8 @@ public class TelephoneTypes {
   
   /**
    * Sets a valid type and return the map.
-   * @param type A string that will be set to a valid type.
-   * @return
+   * @param telephoneType A string that will be set to a valid type.
+   * @return Map A map of the valid telephone types.
    */
   public static Map<String, Boolean> getTypes(String telephoneType) {
     Map<String, Boolean> typeMap = TelephoneTypes.getTypes();
@@ -39,7 +39,7 @@ public class TelephoneTypes {
   /**
    * Returns true if the parameter is a valid type.
    * @param type The telephone type.
-   * @return
+   * @return True if the type is valid.
    */
   public static boolean isType(String type) {
     return TelephoneTypes.getTypes().keySet().contains(type);

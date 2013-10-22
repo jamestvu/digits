@@ -16,7 +16,10 @@ import java.util.List;
 public class Standing {
   private long id;
   private String name;
-
+  private static final long JUNIOR = 3L;
+  private static final long SENIOR = 4L;
+  private static final long NA = 5L;
+  
   /**
    * Create a new Grade Level.
    * @param id The id.
@@ -26,19 +29,39 @@ public class Standing {
     this.id = id;
     this.name = name;
   }
-
+  
+  /** 
+   * Sets the id.
+   * @param id The id to set.
+   * 
+   */
   public void setId(long id) {
     this.id = id;
   }
-
+  
+  /** 
+   * Sets the id.
+   * @param name The name to set.
+   * 
+   */
   public void setName(String name) {
     this.name = name;
   }
-
+  
+  /** 
+   * Gets the id.
+   * @return long The id.
+   * 
+   */
   public long getId() {
     return id;
   }
-
+  
+  /** 
+   * Gets the standing name.
+   * @return String The name.
+   * 
+   */
   public String getName() {
     return name;
   }
@@ -86,9 +109,9 @@ public class Standing {
   static {
     allLevels.add(new Standing(1L, "Freshman"));
     allLevels.add(new Standing(2L, "Sophomore"));
-    allLevels.add(new Standing(3L, "Junior"));
-    allLevels.add(new Standing(4L, "Senior"));
-    allLevels.add(new Standing(5L, "N/A"));
+    allLevels.add(new Standing(JUNIOR, "Junior"));
+    allLevels.add(new Standing(SENIOR, "Senior"));
+    allLevels.add(new Standing(NA, "N/A"));
   }
 
 

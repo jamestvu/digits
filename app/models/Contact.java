@@ -19,6 +19,8 @@ public class Contact {
    * @param lastName The last name.
    * @param telephone The telephone number.
    * @param id The id of the contact.
+   * @param telephoneType The telephone type.
+   * @param standing The class standing.
    */
    public Contact(long id, String firstName, String lastName, String telephone, String telephoneType, String standing) {
      this.setId(id);

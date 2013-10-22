@@ -12,19 +12,19 @@
        value="@contactForm("id").value">
        <!-- Name -->
        
-  @text(contactForm("firstName"),
+  @Text(contactForm("firstName"),
         label = "First",
         placeholder = "First Name",
         help = "")
         
 
-  @text(contactForm("lastName"),
+  @Text(contactForm("lastName"),
         label = "Last",
         placeholder = "Last Name",
         help = "")
         
 
-  @telephone(contactForm("telephone"),
+  @Telephone(contactForm("telephone"),
         label = "Phone",
         placeholder = "Telephone",
         help = "",
@@ -33,7 +33,7 @@
         isMultiple = false) 
 
   <!-- Standings -->
-  @radiobuttons(contactForm("standing"),
+  @Radiobuttons(contactForm("standing"),
                 label = "Standing",
                 buttonNameList = standings,
                 help = "")

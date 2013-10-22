@@ -77,7 +77,8 @@ public class ContactFormData {
     // Grade Level is required and must exist in database.
     if (standing == null || standing.length() == 0) {
       errors.add(new ValidationError("standing", "No standing was given."));
-    } else if (Standing.findLevel(standing) == null) {
+    } 
+    else if (Standing.findLevel(standing) == null) {
       errors.add(new ValidationError("standing", "Invalid standing: " + standing + "."));
     }
     

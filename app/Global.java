@@ -1,5 +1,4 @@
 
-
 import models.ContactDB;
 import models.Standing;
 import play.Application;
@@ -15,6 +14,10 @@ import views.formdata.ContactFormData;
  */
 public class Global extends GlobalSettings {
 
+  /**
+   * Initializes four contacts on start.
+   * @param app The application.
+   */
   public void onStart(Application app) {
       ContactFormData c1 = new ContactFormData();
       c1.firstName = "Phillip";

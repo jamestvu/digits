@@ -1,4 +1,4 @@
-![screenshot](https://raw.github.com/jamestvu/digits/Attempt-1/doc/ss.png)
+![screenshot](https://raw.github.com/jamestvu/digits/DigitsInit-1/doc/ss.png)
 
 Overview
 

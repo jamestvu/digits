@@ -1,6 +1,6 @@
-@(contacts: List[Contact])
+@(page: String, contacts: List[Contact], isLoggedIn: Boolean, userInfo: UserInfo)
 
-@Main("Home") {
+@Main(page, isLoggedIn, userInfo) {
 <div class="container">
   <table class="table table-striped table-bordered">
   <tr><th>First</th><th>Last</th><th>Phone</th><th>Phone Type</th><th>Standing</th></tr>

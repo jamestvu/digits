@@ -1,6 +1,7 @@
 
 import models.ContactDB;
 import models.Standing;
+import models.UserInfoDB;
 import play.Application;
 import play.GlobalSettings;
 import views.formdata.ContactFormData;
@@ -50,6 +51,8 @@ public class Global extends GlobalSettings {
       c1.telephoneType = "Home";
       c1.standing = Standing.findLevel("Junior").getName();
       ContactDB.addContact(c1);
+      
+      UserInfoDB.addUserInfo("John Smith", "smith@example.com", "password");
       
   }
 

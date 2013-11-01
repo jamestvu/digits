@@ -21,6 +21,7 @@ public class Global extends GlobalSettings {
    */
   public void onStart(Application app) {
       ContactFormData c1 = new ContactFormData();
+      c1.id = 1;
       c1.firstName = "Phillip";
       c1.lastName = "Johnson";
       c1.telephone = "123-456-7890";
@@ -29,6 +30,7 @@ public class Global extends GlobalSettings {
       ContactDB.addContact(c1);
       
       c1 = new ContactFormData();
+      c1.id = 2;
       c1.firstName = "Phillip2";
       c1.lastName = "Johnson2";
       c1.telephone = "123-456-7890";
@@ -37,6 +39,7 @@ public class Global extends GlobalSettings {
       ContactDB.addContact(c1);
       
       c1 = new ContactFormData();
+      c1.id = 3;
       c1.firstName = "Phillip3";
       c1.lastName = "Johnson3";
       c1.telephone = "123-456-7890";
@@ -45,6 +48,7 @@ public class Global extends GlobalSettings {
       ContactDB.addContact(c1);
       
       c1 = new ContactFormData();
+      c1.id = 4;
       c1.firstName = "Phillip5";
       c1.lastName = "Johnson4";
       c1.telephone = "123-456-7890";

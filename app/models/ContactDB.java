@@ -21,7 +21,14 @@ public class ContactDB {
    * @return Contact the newly created contact to return.
    */
   public static Contact addContact(ContactFormData formData) {
-    long idVal = (formData.id == 0) ? contacts.size() + 1 : formData.id;
+    List<Contact> tempList = getContacts();
+    long idVal;
+    if (!tempList.isEmpty()) {
+      idVal = (formData.id == 0) ? tempList.get(tempList.size() - 1).getId() + 1 : formData.id;
+    }
+    else {
+      idVal = 1;
+    }
     Contact contact = new Contact(idVal, formData.firstName, formData.lastName, formData.telephone, 
           formData.telephoneType, formData.standing);
     contacts.put(idVal,  contact);

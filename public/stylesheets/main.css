@@ -2,6 +2,10 @@ body {
   
 }
 
+.navbar {
+  border-radius: 0px; 
+}
+
 .btn a:link, .btn a:visited {
   color: white;
 }

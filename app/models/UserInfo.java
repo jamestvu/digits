@@ -9,6 +9,7 @@ public class UserInfo {
   private String name;
   private String email;
   private String password;
+  private ContactDB contactDB;
   
   /**
    * Creates a new UserInfo instance.
@@ -20,6 +21,7 @@ public class UserInfo {
     this.name = name;
     this.email = email;
     this.password = password;
+    setContactDB(new ContactDB());
   }
   
   /**
@@ -57,6 +59,20 @@ public class UserInfo {
    */
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  /**
+   * @return the contactDB
+   */
+  public ContactDB getContactDB() {
+    return contactDB;
+  }
+
+  /**
+   * @param contactDB the contactDB to set
+   */
+  public void setContactDB(ContactDB contactDB) {
+    this.contactDB = contactDB;
   }
 
 }

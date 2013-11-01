@@ -13,14 +13,14 @@ import views.formdata.ContactFormData;
  */
 public class ContactDB {
   
-  private static Map<Long, Contact> contacts = new HashMap<Long, Contact>();
+  private Map<Long, Contact> contacts = new HashMap<Long, Contact>();
 
   /**
    * Updates the repo with a new Contact if id = 0 or update a pre existing contact if id != 0.
    * @param formData the contact form data to add.
    * @return Contact the newly created contact to return.
    */
-  public static Contact addContact(ContactFormData formData) {
+  public Contact addContact(ContactFormData formData) {
     List<Contact> tempList = getContacts();
     long idVal;
     if (!tempList.isEmpty()) {
@@ -39,7 +39,7 @@ public class ContactDB {
    * Updates the repository with a new Contact if id = 0 or update a pre-existing contact if id != 0.
    * @param id the id.
    */
-  public static void deleteContact(long id) {
+  public void deleteContact(long id) {
     contacts.remove(id);
   }
   
@@ -48,15 +48,24 @@ public class ContactDB {
    * Returns the list of contacts.
    * @return List of Contacts.
    */
-  public static List<Contact> getContacts() {
+  public List<Contact> getContacts() {
     return new ArrayList<>(contacts.values());
   }
+  
+  /**
+   * Returns the list of contacts.
+   * @return List of Contacts.
+   */
+  public List<Contact> getContacts2() {
+    return new ArrayList<>(contacts.values());
+  }
+  
   /**
    * Returns a Contact object.
    * @param id the id.
    * @return Contact based on the id.
    */
-  public static Contact getContact(long id) {
+  public Contact getContact(long id) {
     Contact contact = contacts.get(id);
     if (contact == null) {
       throw new RuntimeException("Passed an invalid id: " + id); 

@@ -29,7 +29,7 @@ public class Application extends Controller {
   public static Result index() {
     UserInfo userInfo = UserInfoDB.getUser(request().username());
     Boolean isLoggedIn = (userInfo != null);
-    return ok(Index.render("Home", ContactDB.getContacts(), isLoggedIn, userInfo));
+    return ok(Index.render("Home", userInfo.getContactDB().getContacts2(), isLoggedIn, userInfo));
   }
   
   /**
@@ -41,7 +41,7 @@ public class Application extends Controller {
   public static Result newContact(long id) {
     UserInfo userInfo = UserInfoDB.getUser(request().username());
     Boolean isLoggedIn = (userInfo != null);
-    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
+    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(userInfo.getContactDB().getContact(id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     return ok(NewContact.render("New Contact", isLoggedIn, userInfo, formData, TelephoneTypes.getTypes(), Standing.getNameList()));
     
@@ -56,8 +56,8 @@ public class Application extends Controller {
   public static Result deleteContact(long id) {
     UserInfo userInfo = UserInfoDB.getUser(request().username());
     Boolean isLoggedIn = (userInfo != null);
-    ContactDB.deleteContact(id);
-    return ok(Index.render("Home", ContactDB.getContacts(), isLoggedIn, userInfo));
+    userInfo.getContactDB().deleteContact(id);
+    return ok(Index.render("Home", userInfo.getContactDB().getContacts2(), isLoggedIn, userInfo));
     
   }
   
@@ -76,7 +76,7 @@ public class Application extends Controller {
     }
     else {
       ContactFormData data = formData.get();
-      ContactDB.addContact(data);
+      userInfo.getContactDB().addContact(data);
       return ok(NewContact.render("New Contact", isLoggedIn, userInfo, formData, TelephoneTypes.getTypes(), Standing.getNameList()));
     }
   }

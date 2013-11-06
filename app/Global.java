@@ -4,6 +4,7 @@ import models.Standing;
 import models.UserInfoDB;
 import play.Application;
 import play.GlobalSettings;
+import play.api.Play;
 import views.formdata.ContactFormData;
 
 
@@ -64,7 +65,7 @@ public class Global extends GlobalSettings {
     UserInfoDB.getUser("smith@example.com").setContactDB(contactDB1);
     UserInfoDB.addUserInfo("John Smith2", "smith2@example.com", "password");
     UserInfoDB.getUser("smith2@example.com").setContactDB(contactDB2);
-    
+    //Play.configuration(arg0).get("admin");
   }
 
 }

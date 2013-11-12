@@ -13,6 +13,7 @@ import views.html.Login;
 import views.html.NewContact;
 import views.formdata.ContactFormData;
 import views.formdata.LoginFormData;
+import views.formdata.RegisterFormData;
 import views.formdata.TelephoneTypes;
 
 
@@ -87,7 +88,8 @@ public class Application extends Controller {
    */
   public static Result login() {
     Form<LoginFormData> formData = Form.form(LoginFormData.class);
-    return ok(Login.render("Login", false, null, formData));
+    Form<RegisterFormData> formData2 = Form.form(RegisterFormData.class);
+    return ok(Login.render("Login", false, null, formData, formData2));
   }
 
   /**
@@ -102,16 +104,46 @@ public class Application extends Controller {
 
     // Get the submitted form data from the request object, and run validation.
     Form<LoginFormData> formData = Form.form(LoginFormData.class).bindFromRequest();
-
+    Form<RegisterFormData> formData2 = Form.form(RegisterFormData.class);
     if (formData.hasErrors()) {
       flash("error", "Login credentials not valid.");
-      return badRequest(Login.render("Login", false, null, formData));
+      return badRequest(Login.render("Login", false, null, formData, formData2));
     }
     else {
       // email/password OK, so now we set the session variable and only go to authenticated pages.
       session().clear();
       session("email", formData.get().email);
       return redirect(routes.Application.index());
+    }
+  }
+  
+  /**
+   * Processes a registration form submission from an unauthenticated user. 
+   * First we bind the HTTP POST data to an instance of LoginFormData.
+   * The binding process will invoke the LoginFormData.validate() method.
+   * If errors are found, re-render the page, displaying the error data. 
+   * If errors not found, render the page with the good data. 
+   * @return The index page with the results of validation. 
+   */
+  public static Result postRegister() {
+
+    // Get the submitted form data from the request object, and run validation.
+    Form<RegisterFormData> formData = Form.form(RegisterFormData.class).bindFromRequest();
+    Form<LoginFormData> formData2 = Form.form(LoginFormData.class);
+    if (formData.hasErrors()) {
+      flash("error", "Missing required fields.");
+      if (formData.errors().containsKey("email2")) {
+        flash("error", "Email already in use.");
+      }
+      return badRequest(Login.render("Login", false, null, formData2, formData));
+    }
+    else {
+      // email/password OK, so now we set the session variable and only go to authenticated pages.
+      //session().clear();
+      //session("email", formData.get().email);
+      RegisterFormData temp = formData.get();
+      UserInfoDB.addUserInfo(temp.name, temp.email, temp.password);
+      return login();
     }
   }
   

@@ -1,9 +1,9 @@
-@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, loginForm: Form[views.formdata.LoginFormData])
+@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, loginForm: Form[views.formdata.LoginFormData], registerForm: Form[views.formdata.RegisterFormData])
 
 @import bootstrap3._
 
 @Main(page, isLoggedIn, userInfo) {
    <div class="container">
-     @loginform(routes.Application.postLogin(), loginForm("email"), loginForm("password"))
+     @registrationForm(routes.Application.postLogin(), routes.Application.postRegister(), loginForm("email"), loginForm("password"), registerForm("name"), registerForm("email"), registerForm("password"))
    </div>
 }

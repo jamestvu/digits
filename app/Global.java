@@ -24,8 +24,6 @@ public class Global extends GlobalSettings {
     
     String adminEmail = Play.application().configuration().getString("digits.admin.email");
     String adminPassword = Play.application().configuration().getString("digits.admin.password");
-    System.out.println(adminEmail + " " + adminPassword);
-    System.out.println(Play.application().configuration().getString("digits.admin.qq"));
     UserInfoDB.defineAdmin("Administrator", adminEmail, adminPassword);
     
     if (UserInfoDB.adminDefined()) {

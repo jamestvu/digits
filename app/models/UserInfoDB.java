@@ -23,8 +23,6 @@ public class UserInfoDB {
       adminDefined = true;
       addUserInfo("Administrator", email, password);
     }
-    System.out.println("email:" + email);
-    System.out.println("password" + password);
   }
   
   /**

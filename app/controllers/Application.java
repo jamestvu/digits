@@ -41,7 +41,7 @@ public class Application extends Controller {
   public static Result newContact(long id) {
     UserInfo userInfo = UserInfoDB.getUser(request().username());
     Boolean isLoggedIn = (userInfo != null);
-    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(userInfo.getContactDB().getContact(id));
+    ContactFormData data = (id == -1) ? new ContactFormData() : new ContactFormData(userInfo.getContactDB().getContact(id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     return ok(NewContact.render("New Contact", isLoggedIn, userInfo, formData, TelephoneTypes.getTypes(), Standing.getNameList()));
     

@@ -24,9 +24,10 @@ public class Global extends GlobalSettings {
     
     String adminEmail = Play.application().configuration().getString("digits.admin.email");
     String adminPassword = Play.application().configuration().getString("digits.admin.password");
-    UserInfoDB.defineAdmin("Administrator", adminEmail, adminPassword);
+    String name = "Administrator";
+    UserInfoDB.defineAdmin(name, adminEmail, adminPassword);
     
-    if (UserInfoDB.adminDefined()) {
+    if (UserInfoDB.adminDefined() && UserInfoDB.getUser(adminEmail).getContacts().isEmpty()) {
       
       ContactDB contactDB1 = new ContactDB();
       ContactDB contactDB2 = new ContactDB();
@@ -38,7 +39,7 @@ public class Global extends GlobalSettings {
       c1.telephone = "123-456-7890";
       c1.telephoneType = "Home";
       c1.standing = Standing.findLevel("N/A").getName();
-      contactDB1.addContact(c1);
+      contactDB1.addContact(name, c1);
       
       c1 = new ContactFormData();
       c1.id = 2;
@@ -47,7 +48,7 @@ public class Global extends GlobalSettings {
       c1.telephone = "123-456-7890";
       c1.telephoneType = "Home";
       c1.standing = Standing.findLevel("Freshman").getName();
-      contactDB1.addContact(c1);
+      contactDB1.addContact(name, c1);
       
       c1 = new ContactFormData();
       c1.id = 3;
@@ -56,7 +57,7 @@ public class Global extends GlobalSettings {
       c1.telephone = "123-456-7890";
       c1.telephoneType = "Home";
       c1.standing = "Senior";
-      contactDB1.addContact(c1);
+      contactDB1.addContact(name, c1);
       
       c1 = new ContactFormData();
       c1.id = 4;
@@ -65,8 +66,8 @@ public class Global extends GlobalSettings {
       c1.telephone = "123-456-7890";
       c1.telephoneType = "Home";
       c1.standing = Standing.findLevel("Junior").getName();
-      contactDB1.addContact(c1);
-      contactDB2.addContact(c1);
+      contactDB1.addContact(name, c1);
+      contactDB2.addContact(name, c1);
       
       UserInfoDB.getUser(adminEmail).setContactDB(contactDB1);
       

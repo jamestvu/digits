@@ -13,51 +13,63 @@ import views.formdata.ContactFormData;
  */
 public class ContactDB {
   
-  private Map<Long, Contact> contacts = new HashMap<Long, Contact>();
-
   /**
-   * Updates the repo with a new Contact if id = 0 or update a pre existing contact if id != 0.
+   * Updates the repo with a new Contact if id = -1 or update a pre existing contact if id != -1.
    * @param formData the contact form data to add.
    * @return Contact the newly created contact to return.
    */
-  public Contact addContact(ContactFormData formData) {
-    List<Contact> tempList = getContacts();
-    long idVal;
-    if (!tempList.isEmpty()) {
-      idVal = (formData.id == 0) ? tempList.get(tempList.size() - 1).getId() + 1 : formData.id;
+  public void addContact(String user, ContactFormData formData) {
+    boolean isNewContact = formData.id == -1;
+    if (isNewContact) {
+      Contact contact = new Contact(formData.firstName, formData.lastName, formData.telephone, 
+          formData.telephoneType, formData.standing);
+      UserInfo userInfo = UserInfo.find().where().eq("email", user).findUnique();
+      if (userInfo == null) {
+        throw new RuntimeException("Could not find user: " + user);
+      }
+      userInfo.addContact(contact);
+      contact.setUserInfo(userInfo);
+      contact.save();
+      userInfo.save();
     }
     else {
-      idVal = 1;
+      Contact contact = Contact.find().byId(formData.id);
+      contact.setFirstName(formData.firstName);
+      contact.setLastName(formData.lastName);
+      contact.setTelephone(formData.telephone);
+      contact.setTelephoneType(formData.telephoneType);
+      contact.save();
     }
-    Contact contact = new Contact(idVal, formData.firstName, formData.lastName, formData.telephone, 
-          formData.telephoneType, formData.standing);
-    contacts.put(idVal,  contact);
-    return contact;
   }
   
   /**
-   * Updates the repository with a new Contact if id = 0 or update a pre-existing contact if id != 0.
+   * Updates the repository with a new Contact if id = -1 or update a pre-existing contact if id != -1.
    * @param id the id.
    */
   public void deleteContact(long id) {
-    contacts.remove(id);
+    //contacts.remove(id);
   }
   
-  
+  /**
+   * Returns true if the user is defined in the Contacts DB.
+   * @param user The user.
+   * @return True if the user is defind.
+   */
+  public boolean isUser(String user) {
+    return UserInfo.find().where().eq("email", user).findUnique() != null;
+  }
   /**
    * Returns the list of contacts.
    * @return List of Contacts.
    */
-  public List<Contact> getContacts() {
-    return new ArrayList<>(contacts.values());
-  }
-  
-  /**
-   * Returns the list of contacts.
-   * @return List of Contacts.
-   */
-  public List<Contact> getContacts2() {
-    return new ArrayList<>(contacts.values());
+  public List<Contact> getContacts(String user) {
+    UserInfo userInfo = UserInfo.find().where().eq("email", user).findUnique();
+    if (userInfo == null) {
+      return null;
+    }
+    else {
+      return userInfo.getContacts();
+    }
   }
   
   /**
@@ -65,10 +77,14 @@ public class ContactDB {
    * @param id the id.
    * @return Contact based on the id.
    */
-  public Contact getContact(long id) {
-    Contact contact = contacts.get(id);
+  public Contact getContact(String user, long id) {
+    Contact contact = Contact.find().byId(id);
     if (contact == null) {
-      throw new RuntimeException("Passed an invalid id: " + id); 
+      throw new RuntimeException("Contact ID not found");
+    }
+    UserInfo userInfo = contact.getUserInfo();
+    if (!user.equals(userInfo.getEmail())) {
+      throw new RuntimeException("User not the same one stored with the contact.");
     }
     return contact;
   }

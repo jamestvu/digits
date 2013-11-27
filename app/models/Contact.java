@@ -1,29 +1,62 @@
 package models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
+
 /**
  * Provides a model for a contact object.
  * @author James Vu
  *
  */
-public class Contact {
+@Entity
+public class Contact extends Model{
+
+  private static final long serialVersionUID = 1L;
   private String firstName;
   private String lastName;
   private String telephone;
   private String telephoneType;
   private String standing;
+  @Id
   private long id;
+  
+  //Many of me (contacts) to one of the following (UserInfo)
+  @ManyToOne
+  private UserInfo userInfo;
+  /**
+   * @return the userInfo
+   */
+  public UserInfo getUserInfo() {
+    return userInfo;
+  }
+  /**
+   * @param userInfo the userInfo to set
+   */
+  public void setUserInfo(UserInfo userInfo) {
+    this.userInfo = userInfo;
+  }
+  
+  /**
+   * The EBean ORM finder method for database queries.
+   * @return The finder method for products.
+   */
+  public static Finder<Long, Contact> find() {
+    return new Finder<Long, Contact>(Long.class, Contact.class);
+  }
+
   
   /**
    * Creates a new contact.
    * @param firstName The first name.
    * @param lastName The last name.
    * @param telephone The telephone number.
-   * @param id The id of the contact.
    * @param telephoneType The telephone type.
    * @param standing The class standing.
    */
-   public Contact(long id, String firstName, String lastName, String telephone, String telephoneType, String standing) {
-     this.setId(id);
+   public Contact(String firstName, String lastName, String telephone, String telephoneType, String standing) {
      this.firstName = firstName;
      this.lastName = lastName;
      this.telephone = telephone;

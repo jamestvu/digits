@@ -1,17 +1,12 @@
 package models;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Provides an in-memory repository for UserInfo.
+ * Provides an access to a MySQL repository for UserInfo.
  * Storing credentials in the clear is kind of bogus.
  * @author Philip Johnson
  */
 public class UserInfoDB {
-  
-  private static Map<String, UserInfo> userinfos = new HashMap<String, UserInfo>();
-  private static boolean adminDefined = false;
+
   /**
    * Adds the admin user to the UserInfoDB.
    * @param name Their name.
@@ -19,9 +14,11 @@ public class UserInfoDB {
    * @param password Their password. 
    */
   public static void defineAdmin(String name, String email, String password) {
-    if (email != null && password != null) {
-      adminDefined = true;
-      addUserInfo("Administrator", email, password);
+    if ((email != null && password != null) && (!adminDefined())) {
+      UserInfo userInfo = new UserInfo(name, email, password);
+      userInfo.setAdmin(true);
+      userInfo.save();
+      
     }
   }
   
@@ -30,7 +27,8 @@ public class UserInfoDB {
    * @return boolean e.
    */
   public static boolean adminDefined() {
-    return adminDefined;
+    UserInfo userInfo = UserInfo.find().where().eq("admin", true).findUnique();
+    return userInfo != null;
   }
   
   /**
@@ -40,7 +38,8 @@ public class UserInfoDB {
    * @param password Their password. 
    */
   public static void addUserInfo(String name, String email, String password) {
-    userinfos.put(email, new UserInfo(name, email, password));
+    UserInfo userInfo = new UserInfo(name, email, password);
+    userInfo.save();
   }
   
   /**
@@ -49,7 +48,7 @@ public class UserInfoDB {
    * @return True if known user.
    */
   public static boolean isUser(String email) {
-    return userinfos.containsKey(email);
+    return UserInfo.find().where().eq("email", email).findUnique() != null;
   }
 
   /**
@@ -58,7 +57,7 @@ public class UserInfoDB {
    * @return The UserInfo.
    */
   public static UserInfo getUser(String email) {
-    return userinfos.get((email == null) ? "" : email);
+    return UserInfo.find().where().eq("email", email).findUnique();
   }
 
   /**

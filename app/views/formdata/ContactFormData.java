@@ -26,7 +26,7 @@ public class ContactFormData {
   /** The class standing. */
   public String standing = "";
   /** The id. */
-  public long id = 0;
+  public long id = -1;
   
   /**
    * Default Constructor.

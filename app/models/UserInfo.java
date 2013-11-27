@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
 @Entity
-public class UserInfo extends Model{
+public class UserInfo extends Model {
  
   /**
    * Default UID.

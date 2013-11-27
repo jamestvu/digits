@@ -18,7 +18,7 @@ public class ContactDB {
    * @param formData the contact form data to add.
    * @return Contact the newly created contact to return.
    */
-  public void addContact(String user, ContactFormData formData) {
+  public static void addContact(String user, ContactFormData formData) {
     boolean isNewContact = formData.id == -1;
     if (isNewContact) {
       Contact contact = new Contact(formData.firstName, formData.lastName, formData.telephone, 
@@ -34,11 +34,17 @@ public class ContactDB {
     }
     else {
       Contact contact = Contact.find().byId(formData.id);
-      contact.setFirstName(formData.firstName);
-      contact.setLastName(formData.lastName);
-      contact.setTelephone(formData.telephone);
-      contact.setTelephoneType(formData.telephoneType);
-      contact.save();
+      if (contact == null) {
+        contact = new Contact(formData.firstName, formData.lastName, formData.telephone, formData.telephoneType, formData.standing);
+      }
+      else {
+        contact.setFirstName(formData.firstName);
+        contact.setLastName(formData.lastName);
+        contact.setTelephone(formData.telephone);
+        contact.setTelephoneType(formData.telephoneType);
+        contact.setStanding(formData.standing);
+      }
+        contact.save();
     }
   }
   
@@ -46,7 +52,7 @@ public class ContactDB {
    * Updates the repository with a new Contact if id = -1 or update a pre-existing contact if id != -1.
    * @param id the id.
    */
-  public void deleteContact(long id) {
+  public static void deleteContact(long id) {
     //contacts.remove(id);
   }
   
@@ -55,14 +61,14 @@ public class ContactDB {
    * @param user The user.
    * @return True if the user is defind.
    */
-  public boolean isUser(String user) {
+  public static boolean isUser(String user) {
     return UserInfo.find().where().eq("email", user).findUnique() != null;
   }
   /**
    * Returns the list of contacts.
    * @return List of Contacts.
    */
-  public List<Contact> getContacts(String user) {
+  public static List<Contact> getContacts(String user) {
     UserInfo userInfo = UserInfo.find().where().eq("email", user).findUnique();
     if (userInfo == null) {
       return null;
@@ -77,7 +83,7 @@ public class ContactDB {
    * @param id the id.
    * @return Contact based on the id.
    */
-  public Contact getContact(String user, long id) {
+  public static Contact getContact(String user, long id) {
     Contact contact = Contact.find().byId(id);
     if (contact == null) {
       throw new RuntimeException("Contact ID not found");

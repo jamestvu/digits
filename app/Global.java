@@ -30,7 +30,6 @@ public class Global extends GlobalSettings {
     if (UserInfoDB.adminDefined() && UserInfoDB.getUser(adminEmail).getContacts().isEmpty()) {
       
       ContactDB contactDB1 = new ContactDB();
-      ContactDB contactDB2 = new ContactDB();
       
       ContactFormData c1 = new ContactFormData();
       c1.id = 1;
@@ -67,11 +66,9 @@ public class Global extends GlobalSettings {
       c1.telephoneType = "Home";
       c1.standing = Standing.findLevel("Junior").getName();
       contactDB1.addContact(name, c1);
-      contactDB2.addContact(name, c1);
       
       UserInfoDB.getUser(adminEmail).setContactDB(contactDB1);
       
-      UserInfoDB.getUser(adminEmail).setContactDB(contactDB2);
       
     }
   }

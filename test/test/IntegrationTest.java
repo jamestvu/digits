@@ -1,8 +1,12 @@
 package test;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import play.test.TestBrowser;
 import play.libs.F.Callback;
+import test.pages.IndexPage;
+import test.pages.LoginPage;
+import test.pages.NewContactPage;
 import static play.test.Helpers.HTMLUNIT;
 import static play.test.Helpers.inMemoryDatabase;
 import static play.test.Helpers.fakeApplication;
@@ -20,17 +24,45 @@ public class IntegrationTest {
   /**
    * Check to see that the two pages can be displayed.
    */
-  @Test
-  public void test() {
+  @Ignore
+  public void testBasicRetrieval() {
     running(testServer(PORT, fakeApplication(inMemoryDatabase())), HTMLUNIT, new Callback<TestBrowser>() {
       public void invoke(TestBrowser browser) {
-        browser.goTo("http://localhost:3333");
-        assertThat(browser.pageSource()).contains("home page");
-
-        browser.goTo("http://localhost:3333/page1");
-        assertThat(browser.pageSource()).contains("Page1");
+        IndexPage indexPage = new IndexPage(browser.getDriver(), PORT);
+        browser.goTo(indexPage);
+        indexPage.isAt();
+        assertThat(browser.pageSource()).contains("Digits");
       }
     });
   }
 
+  
+  @Ignore
+  public void testLogin() {
+    running(testServer(PORT, fakeApplication(inMemoryDatabase())), HTMLUNIT, new Callback<TestBrowser>() {
+      public void invoke(TestBrowser browser) {
+        LoginPage loginPage = new LoginPage(browser.getDriver(), PORT);
+        browser.goTo(loginPage);
+        loginPage.isAt();
+        assertThat(browser.pageSource()).contains("Digits");
+        loginPage.login();
+
+      }
+    });
+  }
+  
+  @Test
+  public void testNewContact() {
+    running(testServer(PORT, fakeApplication(inMemoryDatabase())), HTMLUNIT, new Callback<TestBrowser>() {
+      public void invoke(TestBrowser browser) {
+        LoginPage loginPage = new LoginPage(browser.getDriver(), PORT);
+        browser.goTo(loginPage);
+        loginPage.isAt();
+        loginPage.login();
+        NewContactPage newContactPage = new NewContactPage(browser.getDriver(), PORT);
+        browser.goTo(newContactPage);
+        newContactPage.addContact();
+      }
+    });
+  }
 }
